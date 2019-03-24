@@ -1,18 +1,18 @@
 const express = require('express');
 const router = express();
 const ProductController = require('../controllers/productController');
-// const Authentication = require('../middlewares/authentication.js')
-// const images = require('../helpers/images')
+const {adminVerification} = require('../middlewares/authentication.js')
+const images = require('../helpers/images')
 /* GET users listing. */
 
-router.post('/register', ProductController.create);
+//All Users - without authentication
+router.get('/', ProductController.displayProductAll);
+router.get('/:id', ProductController.displayProductDetail);
 
-// router.post('/register', images.multer.single('image'), images.sendUploadToGCS, ProductController.create);
-// router.get('/myproduct', ProductController.displayListArticleByUserId)
-// router.get('/myproduct/:id', ProductController.displayIndividualProduct)
-
-// router.put('/edit/:id', images.multer.single('image'), images.sendUploadToGCS, ProductController.editIndividualProduct)
-// router.delete('/delete/:id', ProductController.deleteIndividualProduct)
-
+// Admin Only
+router.use(adminVerification)
+router.post('/register', images.multer.single('image'), images.sendUploadToGCS, ProductController.createProduct);
+router.put('/edit/:id', ProductController.editProduct);
+router.delete('/delete/:id', ProductController.deleteProduct);
 
 module.exports = router;

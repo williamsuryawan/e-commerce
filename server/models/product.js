@@ -3,12 +3,13 @@ const Schema = mongoose.Schema
 
 const ProductSchema = new Schema ({
     name: {type: String},
-    amount: {type: Number},
-    price: {type: Number}
-    // productuserid: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'User'
-    // }
+    stock: {type: Number},
+    price: {type: Number},
+    link: {type: String},
+    productuserid: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }
 })
 
 const Productlist = mongoose.model('Productlist', ProductSchema)
