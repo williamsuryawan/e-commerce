@@ -10,7 +10,7 @@
             <h3> Stock Available: {{ product.stock }} </h3>
         </div>
         <div>
-        <router-link class="btn btn-primary" id="buy_button" :to="'/product/' + product.id +'/buy/' ">Buy</router-link>
+        <button class="btn btn-primary" id="buy_button" @click.prevent="addToCart(product)">Buy</button>
         <router-view />
         </div>
     </div>
@@ -18,6 +18,7 @@
 
 <script>
 import server from '@/api/server.js';
+import swal from 'sweetalert';
 
 export default {
     name: 'product-details',
@@ -47,6 +48,31 @@ export default {
             .catch((err) => {
                 console.log(err);
             })
+        },
+        addToCart(product) {
+            console.log("masuk sini ke method add to cart:", product)
+            if (!localStorage.getItem("token")) {
+                swal("you have to login first!", {
+                buttons: ["continue browsing", "login now"]
+                }).then(value => {
+                if (value) this.$route.push("/login");
+                });
+            } else {
+                server
+                .post("/carts", {
+                    _id: product._id,
+                    amount: 1 },
+                    { headers: {
+                        token: localStorage.getItem("token")
+                    }})
+                .then(({ data }) => {
+                    console.log("berhasil add to cart")
+                    this.$route.push({ path: "/carts" });
+                })
+                .catch(({ response }) => {
+                    console.error(response);
+                });
+            }
         }
     },
     created() {

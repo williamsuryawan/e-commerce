@@ -91,7 +91,7 @@ export default {
                 // this.user = data.data;
                 localStorage.setItem("token", data.token)
                 // localStorage.setItem("role", this.user.role)
-                this.$router.push('/')
+                this.$router.push('/');
             })
             .catch(({ response }) => {
                 console.log("sign in error")
@@ -111,7 +111,7 @@ export default {
             this.user = data.data;
             localStorage.setItem("token", data.token);
             localStorage.setItem("role", this.user.role)
-            this.$router.push({path: '/'})
+            this.$router.push('/');
             })
             .catch(({ response }) => {
             this.errors = {};

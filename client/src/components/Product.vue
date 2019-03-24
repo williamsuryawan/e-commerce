@@ -26,11 +26,13 @@
 
 <script>
 import server from '@/api/server.js';
+import swal from 'sweetalert';
+
 export default {
   props: ['product'],
   name: 'product',
   methods: {
-      addToCart(product) {
+    addToCart(product) {
       console.log("masuk sini ke method add to cart:", product)
       if (!localStorage.getItem("token")) {
         swal("you have to login first!", {
@@ -40,18 +42,12 @@ export default {
         });
       } else {
         server
-          .post(
-            "/carts",
-            {
+          .post("/carts", {
               _id: product._id,
-              amount: 1
-            },
-            {
-              headers: {
+              amount: 1 },
+            { headers: {
                 token: localStorage.getItem("token")
-              }
-            }
-          )
+              }})
           .then(({ data }) => {
             console.log("berhasil add to cart")
             this.$route.push({ path: "/carts" });

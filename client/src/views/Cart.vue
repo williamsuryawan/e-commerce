@@ -70,6 +70,7 @@
 
 <script>
 import server from "@/api/server.js";
+import swal from 'sweetalert';
 
 export default {
   name: "Cart",
@@ -115,18 +116,12 @@ export default {
             });
         } else {
             server
-            .post(
-                "/carts",
-                {
-                _id: product._id,
-                amount: 1
-                },
-                {
-                headers: {
+            .post("/carts", {
+                    _id: product._id,
+                    amount: 1},
+                { headers: {
                     token: localStorage.getItem("token")
-                }
-                }
-            )
+                }})
             .then(({ data }) => {
                 console.log("berhasil nambah barang")
                 this.$router.push("/carts");
@@ -177,11 +172,11 @@ export default {
         .then(agree => {
           if (agree) {
             return server
-              .put(
-                "carts/empty",{}, {
-                    headers: { token: localStorage.getItem("token")}})
+              .put("carts/empty",{}, {
+                    headers: { token: localStorage.getItem("token")}
+                    })
               .then(() => {
-                this.$route.push({ path: "/carts" });
+                this.$router.push({ path: "/carts" });
               });
           }
         })

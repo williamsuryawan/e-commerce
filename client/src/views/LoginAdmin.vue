@@ -43,7 +43,7 @@ export default {
   methods: {
       adminLogin () {
           server
-            .post("/users/login", {
+            .post("/users/login/admin", {
                 email: this.adLoginEmail,
                 password: this.adLoginPassword
             })
@@ -51,7 +51,7 @@ export default {
                 console.log("sign in berhasil", data)
                 this.user = data.data;
                 localStorage.setItem("token", data.token)
-                this.$router.push({path: '/'})
+                this.$router.push('/');
             })
             .catch(({ response }) => {
                 console.log("sign in error")

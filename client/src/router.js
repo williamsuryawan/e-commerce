@@ -1,10 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
-// import Products from './views/Products.vue';
 import NotFound from './views/NotFound.vue';
-import ProductDetails from './components/ProductDetails.vue';
-import ProductBuy from './components/ProductBuys.vue';
 import Login from './views/Login.vue';
 import LoginAdmin from './views/LoginAdmin.vue';
 
