@@ -39,6 +39,11 @@ export default new Router({
       component: () => import('./views/Cart.vue'),
     },
     {
+      path: '/checkout',
+      name: 'cust-checkout',
+      component: () => import('./views/CheckOut.vue'),
+    },
+    {
         path: '/login',
         name: 'user-login',
         component: Login,

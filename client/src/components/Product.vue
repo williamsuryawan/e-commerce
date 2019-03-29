@@ -50,12 +50,25 @@ export default {
               }})
           .then(({ data }) => {
             console.log("berhasil add to cart")
-            this.$route.push({ path: "/carts" });
+            this.$router.push({ path: "/carts" });
           })
           .catch(({ response }) => {
             console.error(response);
           });
       }
+    },
+    showDetail (input) {
+      this.$router.push({ path: `/products/${input}`  });
+        server
+            .get(`/products/${input}`)
+            .then(({ data }) => {
+                console.log("berhasil fetch products")
+                this.product = data;
+                this.isLoading = false;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
   }
 };

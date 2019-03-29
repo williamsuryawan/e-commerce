@@ -13,6 +13,6 @@ router.get('/:id', ProductController.displayProductDetail);
 router.use(adminVerification)
 router.post('/register', images.multer.single('image'), images.sendUploadToGCS, ProductController.createProduct);
 router.put('/edit/:id', ProductController.editProduct);
-router.delete('/delete/:id', ProductController.deleteProduct);
+router.put('/delete/:id', ProductController.deleteProduct);
 
 module.exports = router;

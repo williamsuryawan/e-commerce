@@ -91,14 +91,14 @@ class productController {
         })
         .catch(error=>{
             res.status(500).json({
-                msg: 'ERROR in finding your product to edit ',error
-                
+                msg: 'ERROR in finding your product to edit ',error           
             }) 
             console.log(error)
         })
     }
     //delete product (admin only)
     static deleteProduct(req,res) {
+        console.log("masuk ke delete product")
         Product.findOne({
             _id: req.params.id
         })

@@ -57,8 +57,8 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                    <p> Continue to Payment will empty your cart</p> <br>
-                    <button type="submit" class="btn btn-primary" data-dismiss="modal" v-on:submit.prevent="emptyCart">Continue to Payment</button>
+                    <p> You will be directed to payment page</p> <br>
+                    <button type="submit" class="btn btn-primary" @click.prevent="goToCheckOut" data-dismiss="modal">Continue to Payment</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
                 </div>
             </div>
@@ -112,7 +112,7 @@ export default {
             swal("you have to login first!", {
             buttons: ["continue browsing", "login now"]
             }).then(value => {
-            if (value) this.$route.push("/login");
+            if (value) this.$router.push("/login");
             });
         } else {
             server
@@ -125,6 +125,7 @@ export default {
             .then(({ data }) => {
                 console.log("berhasil nambah barang")
                 this.$router.push("/carts");
+                this.getUserCart();
             })
             .catch(({ response }) => {
                 console.error(response);
@@ -156,33 +157,15 @@ export default {
             .then(({ data }) => {
                 console.log("berhasil kurangi barang")
                 this.$router.push("/carts");
+                this.getUserCart();
             })
             .catch(({ response }) => {
                 console.error(response);
             });
         }
     },
-    emptyCart() {
-      swal({
-        title: "Are you sure you want to clear your cart?",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true
-      })
-        .then(agree => {
-          if (agree) {
-            return server
-              .put("carts/empty",{}, {
-                    headers: { token: localStorage.getItem("token")}
-                    })
-              .then(() => {
-                this.$router.push({ path: "/carts" });
-              });
-          }
-        })
-        .catch(({ response }) => {
-          console.error(response);
-        });
+    goToCheckOut () {
+        this.$router.push({ path: "/checkout" });
     },
   }
 }

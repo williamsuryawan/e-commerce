@@ -54,12 +54,14 @@ export default {
             if (!localStorage.getItem("token")) {
                 swal("you have to login first!", {
                 buttons: ["continue browsing", "login now"]
-                }).then(value => {
-                if (value) this.$route.push("/login");
-                });
+                })
+                .then(value => {
+                if (value) {
+                    this.$router.push("/login");
+                }});
             } else {
                 server
-                .post("/carts", {
+                    .post("/carts", {
                     _id: product._id,
                     amount: 1 },
                     { headers: {
@@ -67,7 +69,7 @@ export default {
                     }})
                 .then(({ data }) => {
                     console.log("berhasil add to cart")
-                    this.$route.push({ path: "/carts" });
+                    this.$router.push({ path: "/carts" });
                 })
                 .catch(({ response }) => {
                     console.error(response);
